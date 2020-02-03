@@ -3,20 +3,21 @@ from .views import *
 
 urlpatterns = [
     url(r'^$', index, name='index'),
-    url(r'^laptops$', display_laptops, name="display_laptops"),
-    url(r'^desktops$', display_desktops, name="display_desktops"),
-    url(r'^mobiles$', display_mobiles, name="display_mobiles"),
 
-    url(r'^add_laptop$', add_laptop, name="add_laptop"),
-    url(r'^add_desktop$', add_desktop, name="add_desktop"),
-    url(r'^add_mobile$', add_mobile, name="add_mobile"),
+    url(r'^display_pens$', display_pens, name='display_pens'),
+    url(r'^display_notebooks$', display_notebooks, name='display_notebooks'),
+    url(r'^display_pencilcases$', display_pencilcases, name='display_pencilcases'),
 
-    url(r'^laptops/edit_item/(?P<pk>\d+)$', edit_laptop, name="edit_laptop"),
-    url(r'^desktops/edit_item/(?P<pk>\d+)$', edit_desktop, name="edit_desktop"),
-    url(r'^mobiles/edit_item/(?P<pk>\d+)$', edit_mobile, name="edit_mobile"),
+    url(r'^add_pen$', add_pen, name="add_pen"),
+    url(r'^add_notebook$', add_notebook, name="add_notebook"),
+    url(r'^add_pencilcase$', add_pencilcase, name="add_pencilcase"),
 
-    url(r'^laptops/delete/(?P<pk>\d+)$', delete_laptop, name="delete_laptop"),
-    url(r'^desktops/delete/(?P<pk>\d+)$', delete_desktop, name="delete_desktop"),
-    url(r'^mobiles/delete/(?P<pk>\d+)$', delete_mobile, name="delete_mobile")
+    url(r'^edit_pen/(?P<pk>\d+)$', edit_pen, name="edit_pen"),
+    url(r'^edit_notebook/(?P<pk>\d+)$', edit_notebook, name="edit_notebook"),
+    url(r'^edit_pencilcase/(?P<pk>\d+)$', edit_pencilcase, name="edit_pencilcase"),
+
+    url(r'^delete_pen/(?P<pk>\d+)$', delete_pen, name="delete_pen"),
+    url(r'^delete_notebook/(?P<pk>\d+)$', delete_notebook, name="delete_notebook"),
+    url(r'^delete_pencilcase/(?P<pk>\d+)$', delete_pencilcase, name="delete_pencilcase"),
 
 ]

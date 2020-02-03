@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="button-group">
+
+    <a href="{% url 'display_pens' %}" class="btn btn-primary btn-md" role="button">Pen</a>
+    <a href="{% url 'add_pen' %}" class="btn btn-warning btn-sm" role="button"> +</a>
+
+    <a href="{% url 'display_notebooks' %}" class="btn btn-primary btn-md" role="button">Notebook</a>
+    <a href="{% url 'add_notebook' %}" class="btn btn-warning btn-sm" role="button"> +</a>
+
+    <a href="{% url 'display_pencilcases' %}" class="btn btn-primary btn-md" role="button">Pencilcase</a>
+    <a href="{% url 'add_pencilcase' %}" class="btn btn-warning btn-sm" role="button"> +</a>
+
+</div>
+
+<br>
+
+<h4>Current Viewing {{ header }}</h4>
+<table class="table table-hover">
+    <thread>
+        <tr>
+            <th>id</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Status</th>
+        </tr>
+    </thread>
+
+    <tbody>
+        {% for item in items %}
+
+        <tr>
+            <td>{{ item.pk }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.issues }}</td>
+            {% if header|lower == "pens" %}
+            <td>
+                <a href="{% url 'edit_pen' item.pk %}" class="btn btn-warning btn-sm" role="button"> Edit</a>
+                <a href="{% url 'delete_pen' item.pk %}" class="btn btn-danger btn-sm" role="button"> x</a>
+            </td>
+            {% elif header|lower == "notebooks" %}
+            <td>
+                <a href="{% url 'edit_notebook' item.pk %}" class="btn btn-warning btn-sm" role="button"> Edit</a>
+                <a href="{% url 'delete_pen' item.pk %}" class="btn btn-danger btn-sm" role="button"> x</a>
+            </td>
+            {% else %}
+            <td>
+                <a href="{% url 'edit_pencilcase' item.pk %}" class="btn btn-warning btn-sm" role="button"> Edit</a>
+                <a href="{% url 'delete_pen' item.pk %}" class="btn btn-danger btn-sm" role="button"> x</a>
+            </td>
+            {% endif %}
+        </tr>
+
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

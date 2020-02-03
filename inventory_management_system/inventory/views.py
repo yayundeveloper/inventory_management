@@ -1,40 +1,31 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
-# Create your views here.
-
-from .models import *
-
 from .forms import *
 
-
 def index(request):
-    return render(request, 'inv/index.html')
+    return render(request, 'index.html')
 
-def display_laptops(request):
-    items = Laptops.objects.all()
+def display_pens(request):
+    items = Pen.objects.all()
     context = {
         'items': items,
-        'header': 'Laptops',
     }
-    return render(request, 'inv/index.html', context)
+    return render(request, 'index.html', context)  # 3 arguments
 
-
-def display_desktops(request):
-    items = Desktops.objects.all()
+def display_notebooks(request):
+    items = Notebook.objects.all()
     context = {
         'items': items,
-        'header': 'Desktops',
+        'header': 'Notebooks',
     }
-    return render(request, 'inv/index.html', context)
+    return render(request, 'index.html', context)
 
-
-def display_mobiles(request):
-    items = Mobiles.objects.all()
+def display_pencilcases(request):
+    items = Pencilcase.objects.all()
     context = {
         'items': items,
-        'header': 'Mobiles',
+        'header': 'Pencilcases',
     }
-    return render(request, 'inv/index.html', context)
+    return render(request, 'index.html', context)
 
 def add_item(request, cls):
     if request.method == "POST":
@@ -46,20 +37,16 @@ def add_item(request, cls):
 
     else:
         form = cls()
-        return render(request, 'inv/add_new.html', {'form' : form})
+        return render(request, 'add_new.html', {'form': form})
 
+def add_pen(request):
+    return add_item(request, PenForm)
 
-def add_laptop(request):
-    return add_item(request, LaptopForm)
+def add_notebook(request):
+    return add_item(request, NotebookForm)
 
-
-def add_desktop(request):
-    return add_item(request, DesktopForm)
-
-
-def add_mobile(request):
-    return add_item(request, MobileForm)
-
+def add_pencilcase(request):
+    return add_item(request, PencilcaseForm)
 
 def edit_item(request, pk, model, cls):
     item = get_object_or_404(model, pk=pk)
@@ -69,62 +56,53 @@ def edit_item(request, pk, model, cls):
         if form.is_valid():
             form.save()
             return redirect('index')
+
     else:
-        form = cls(instance=item)
+        form = PenForm(instance=item)
 
-        return render(request, 'inv/edit_item.html', {'form': form})
+    return render(request, 'edit_item.html', {'form': form})
 
+def edit_pen(request, pk):
+    return edit_item(request, pk, Pen, PenForm)
 
+def edit_notebook(request, pk):
+    return edit_item(request, pk, Notebook, NotebookForm)
 
-def edit_laptop(request, pk):
-    return edit_item(request, pk, Laptops, LaptopForm)
+def edit_pencilcase(request, pk):
+    return edit_item(request, pk, Pencilcase, PencilcaseForm)
 
+def delete_pen(request, pk):
 
-def edit_desktop(request, pk):
-    return edit_item(request, pk, Desktops, DesktopForm)
+    Pen.objects.filter(id=pk).delete()
 
-
-def edit_mobile(request, pk):
-    return edit_item(request, pk, Mobiles, MobileForm)
-
-
-def delete_laptop(request, pk):
-
-    template = 'inv/index.html'
-    Laptops.objects.filter(id=pk).delete()
-
-    items = Laptops.objects.all()
+    items = Pen.objects.all()
 
     context = {
-        'items': items,
+        'items': items
     }
 
-    return render(request, template, context)
+    return render(request, 'index.html', context)
 
 
-def delete_desktop(request, pk):
+def delete_notebook(request, pk):
+    Notebook.objects.filter(id=pk).delete()
 
-    template = 'inv/index.html'
-    Desktops.objects.filter(id=pk).delete()
-
-    items = Desktops.objects.all()
+    items = Notebook.objects.all()
 
     context = {
-        'items': items,
+        'items': items
     }
 
-    return render(request, template, context)
+    return render(request, 'index.html', context)
 
 
-def delete_mobile(request, pk):
+def delete_pencilcase(request, pk):
+    Pencilcase.objects.filter(id=pk).delete()
 
-    template = 'inv/index.html'
-    Mobiles.objects.filter(id=pk).delete()
-
-    items = Mobiles.objects.all()
+    items = Pencilcase.objects.all()
 
     context = {
-        'items': items,
+        'items': items
     }
 
-    return render(request, template, context)
+    return render(request, 'index.html', context)

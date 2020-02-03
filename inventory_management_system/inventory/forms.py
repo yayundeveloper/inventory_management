@@ -1,19 +1,17 @@
 from django import forms
 from .models import *
 
-class LaptopForm(forms.ModelForm):
+class PenForm(forms.ModelForm):
     class Meta:
-        model = Laptops
+        model = Pen
         fields = ('type', 'price', 'status', 'issues')
 
-
-class DesktopForm(forms.ModelForm):
+class NotebookForm(forms.ModelForm):
     class Meta:
-        model = Desktops
+        model = Notebook
         fields = ('type', 'price', 'status', 'issues')
-        
 
-class MobileForm(forms.ModelForm):
+class PencilcaseForm(forms.Form):
     class Meta:
-        model = Mobiles
+        model = Pencilcase
         fields = ('type', 'price', 'status', 'issues')
